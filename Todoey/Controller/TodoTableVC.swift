@@ -15,23 +15,27 @@ class TodoTableVC: UITableViewController {
         TodoContext(body: "Use UserDefaults In UIKit", isChecked: false),
         TodoContext(body: "Use Core Data In UIKit", isChecked: true),
         TodoContext(body: "Use realm In UIKit", isChecked: false),
-        TodoContext(body: "Use UITableViewController", isChecked: false),
-        TodoContext(body: "Use UserDefaults In UIKit", isChecked: false),
-        TodoContext(body: "Use Core Data In UIKit", isChecked: true),
-        TodoContext(body: "Use realm In UIKit", isChecked: false),
-        TodoContext(body: "Use UITableViewController", isChecked: false),
-        TodoContext(body: "Use UserDefaults In UIKit", isChecked: false),
-        TodoContext(body: "Use Core Data In UIKit", isChecked: true),
-        TodoContext(body: "Use realm In UIKit", isChecked: false),
-        TodoContext(body: "Use UITableViewController", isChecked: false),
-        TodoContext(body: "Use UserDefaults In UIKit", isChecked: false),
-        TodoContext(body: "Use Core Data In UIKit", isChecked: true),
-        TodoContext(body: "Use realm In UIKit", isChecked: false),
-        TodoContext(body: "Use UITableViewController", isChecked: false),
-        TodoContext(body: "Use UserDefaults In UIKit", isChecked: false),
-        TodoContext(body: "Use Core Data In UIKit", isChecked: true),
-        TodoContext(body: "Use realm In UIKit", isChecked: false)
+        TodoContext(body: "Use UITableViewController", isChecked: false)
     ]
+//    let defaults = UserDefaults.standard
+    
+    @IBAction func pressedBarBtn(_ sender: UIBarButtonItem) {
+        var textField = UITextField()
+        let alert = UIAlertController(title: "Add New content", message: "", preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "add", style: .default) { _ in
+            self.myToDoContext.append(TodoContext(body: textField.text ?? ""))
+            self.tableView.reloadData()
+        }
+        alert.addTextField { tf in
+            tf.placeholder = "write to do"
+            textField = tf
+        }
+        
+        alert.addAction(alertAction)
+        present(alert, animated: true)
+        
+    }
+    let fileManagerPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathExtension("Item.plist")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,9 +68,14 @@ class TodoTableVC: UITableViewController {
     
     //MARK: - Table View Delegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedCell = tableView.cellForRow(at: indexPath)
         myToDoContext[indexPath.row].isChecked.toggle()
         tableView.reloadData()
     }
+    
+    //MARK: - UserDefaults method
+    func saveData() {
+        
+    }
+    
 }
 
