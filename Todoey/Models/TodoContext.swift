@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct TodoContext {
+struct TodoContext: Codable {
     let body: String
     var isChecked: Bool
     

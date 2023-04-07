@@ -11,11 +11,11 @@ import UIKit
 class TodoTableVC: UITableViewController {
     
     var myToDoContext: [TodoContext] = [
-        TodoContext(body: "Use UITableViewController", isChecked: false),
-        TodoContext(body: "Use UserDefaults In UIKit", isChecked: false),
-        TodoContext(body: "Use Core Data In UIKit", isChecked: true),
-        TodoContext(body: "Use realm In UIKit", isChecked: false),
-        TodoContext(body: "Use UITableViewController", isChecked: false)
+//        TodoContext(body: "Use UITableViewController", isChecked: false),
+//        TodoContext(body: "Use UserDefaults In UIKit", isChecked: false),
+//        TodoContext(body: "Use Core Data In UIKit", isChecked: true),
+//        TodoContext(body: "Use realm In UIKit", isChecked: false),
+//        TodoContext(body: "Use UITableViewController", isChecked: false)
     ]
 //    let defaults = UserDefaults.standard
     
@@ -35,7 +35,7 @@ class TodoTableVC: UITableViewController {
         present(alert, animated: true)
         
     }
-    let fileManagerPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathExtension("Item.plist")
+    let filePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathExtension("Item.plist")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +74,13 @@ class TodoTableVC: UITableViewController {
     
     //MARK: - UserDefaults method
     func saveData() {
-        
+        let encoder = PropertyListEncoder()
+        do {
+           let data = try encoder.encode(self.myToDoContext)
+           try data.write(to: filePath)
+        } catch let error {
+            print("Encoded Error \(error)")
+        }
     }
     
 }
