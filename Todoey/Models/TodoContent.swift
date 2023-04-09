@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct TodoContext {
+struct TodoContent{
     let body: String
     var isChecked: Bool
     
