@@ -10,6 +10,8 @@ import UIKit
 
 class TodoTableVC: UITableViewController {
     
+    let filePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathExtension("Item.plist")
+    
     var myToDoContext: [TodoContext] = [
 //        TodoContext(body: "Use UITableViewController", isChecked: false),
 //        TodoContext(body: "Use UserDefaults In UIKit", isChecked: false),
@@ -24,6 +26,7 @@ class TodoTableVC: UITableViewController {
         let alert = UIAlertController(title: "Add New content", message: "", preferredStyle: .alert)
         let alertAction = UIAlertAction(title: "add", style: .default) { _ in
             self.myToDoContext.append(TodoContext(body: textField.text ?? ""))
+            self.saveData()
             self.tableView.reloadData()
         }
         alert.addTextField { tf in
@@ -35,11 +38,10 @@ class TodoTableVC: UITableViewController {
         present(alert, animated: true)
         
     }
-    let filePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathExtension("Item.plist")
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        self.loadData()
     }
     
     //MARK: - Table View Data Source
@@ -69,10 +71,11 @@ class TodoTableVC: UITableViewController {
     //MARK: - Table View Delegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         myToDoContext[indexPath.row].isChecked.toggle()
+        saveData()
         tableView.reloadData()
     }
     
-    //MARK: - UserDefaults method
+    //MARK: - persistant Data method
     func saveData() {
         let encoder = PropertyListEncoder()
         do {
@@ -81,6 +84,18 @@ class TodoTableVC: UITableViewController {
         } catch let error {
             print("Encoded Error \(error)")
         }
+    }
+    func loadData() {
+        let deconder = PropertyListDecoder()
+        do {
+            let data = try Data(contentsOf: filePath)
+            let decodedData = try deconder.decode([TodoContext].self, from: data)
+            self.myToDoContext = decodedData
+            
+        } catch let error {
+            print("data Decoding error, \(error)")
+        }
+        
     }
     
 }
