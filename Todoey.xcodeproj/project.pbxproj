@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7F23A57E29E2F6420087D7A7 /* Content.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7F23A57C29E2F6420087D7A7 /* Content.xcdatamodeld */; };
+		7F23A58029E3D4AC0087D7A7 /* CategoryTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F23A57F29E3D4AC0087D7A7 /* CategoryTableVC.swift */; };
 		7F47BC1429DECC70001AE4DD /* TodoContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F47BC1329DECC70001AE4DD /* TodoContent.swift */; };
 		EB2BE4FA239524DB00FB933B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2BE4F9239524DB00FB933B /* AppDelegate.swift */; };
 		EB2BE4FE239524DB00FB933B /* TodoTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2BE4FD239524DB00FB933B /* TodoTableVC.swift */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		7F23A57D29E2F6420087D7A7 /* Content.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Content.xcdatamodel; sourceTree = "<group>"; };
+		7F23A57F29E3D4AC0087D7A7 /* CategoryTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableVC.swift; sourceTree = "<group>"; };
 		7F47BC1329DECC70001AE4DD /* TodoContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoContent.swift; sourceTree = "<group>"; };
 		EB2BE4F6239524DB00FB933B /* Todoey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todoey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB2BE4F9239524DB00FB933B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -42,6 +44,7 @@
 		7F47BC1029DECC27001AE4DD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				7F23A57F29E3D4AC0087D7A7 /* CategoryTableVC.swift */,
 				EB2BE4FD239524DB00FB933B /* TodoTableVC.swift */,
 			);
 			path = Controller;
@@ -165,6 +168,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F23A58029E3D4AC0087D7A7 /* CategoryTableVC.swift in Sources */,
 				EB2BE4FE239524DB00FB933B /* TodoTableVC.swift in Sources */,
 				7F47BC1429DECC70001AE4DD /* TodoContent.swift in Sources */,
 				EB2BE4FA239524DB00FB933B /* AppDelegate.swift in Sources */,

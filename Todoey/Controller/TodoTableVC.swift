@@ -19,16 +19,22 @@ class TodoTableVC: UITableViewController {
     
     var myTodoContents: [Content] = []
     
+    var selectedCategory: Category? {
+        didSet {
+            loadCoreData()
+        }
+    }
+    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadCoreData()
+        navigationItem.title = selectedCategory?.name
         // Do any additional setup after loading the view.
     }
     
+    //MARK: - Core Data methods
     func saveInCoreData() {
         do {
             try context.save()
@@ -39,7 +45,12 @@ class TodoTableVC: UITableViewController {
     }
     
     func loadCoreData() {
+        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
+ 
         let request = NSFetchRequest<Content>(entityName: "Content")
+        
+        request.predicate = categoryPredicate
+        
         do {
             myTodoContents = try context.fetch(request)
         } catch let error {
@@ -57,6 +68,7 @@ class TodoTableVC: UITableViewController {
             let newContent = Content(context: self.context)
             newContent.text = textField.text
             newContent.isChecked = false
+            newContent.parentCategory = self.selectedCategory
             self.myTodoContents.append(newContent)
             print(textField.text ?? "")
             self.saveInCoreData()
@@ -99,7 +111,7 @@ class TodoTableVC: UITableViewController {
     
     //MARK: - Table View Delegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedCell = tableView.cellForRow(at: indexPath)
+//        let selectedCell = tableView.cellForRow(at: indexPath)
         myTodoContents[indexPath.row].isChecked.toggle()
         saveInCoreData()
         tableView.reloadData()

@@ -9,7 +9,46 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Todo TableVC-->
+        <!--Category-->
+        <scene sceneID="blZ-f0-BkK">
+            <objects>
+                <tableViewController id="axQ-Hz-O8T" customClass="CategoryTableVC" customModule="Todoey" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="CQf-Wh-7BV">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="categoryReusableCell" id="fCY-tz-wHZ">
+                                <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fCY-tz-wHZ" id="DQh-QF-tvQ">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="axQ-Hz-O8T" id="vOV-a8-FG8"/>
+                            <outlet property="delegate" destination="axQ-Hz-O8T" id="aku-ca-8na"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Category" id="ePl-Jv-iRY">
+                        <barButtonItem key="rightBarButtonItem" id="JdN-zM-obd">
+                            <imageReference key="image" image="plus" catalog="system" symbolScale="large"/>
+                            <connections>
+                                <action selector="addBtnPressed:" destination="axQ-Hz-O8T" id="rEI-Wb-lgK"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="FvL-GF-Oqx" kind="show" identifier="goToItemView" id="Hpw-Xz-BUC"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CVG-G4-oNB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="924" y="15"/>
+        </scene>
+        <!--Todoey-->
         <scene sceneID="dI8-0r-RIV">
             <objects>
                 <tableViewController id="FvL-GF-Oqx" customClass="TodoTableVC" customModule="Todoey" customModuleProvider="target" sceneMemberID="viewController">
@@ -32,7 +71,7 @@
                             <outlet property="delegate" destination="FvL-GF-Oqx" id="LXv-cv-ctj"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="wYi-LQ-fbJ">
+                    <navigationItem key="navigationItem" title="Todoey" id="wYi-LQ-fbJ">
                         <barButtonItem key="rightBarButtonItem" title="Item" id="SeN-xA-22b">
                             <imageReference key="image" image="plus" catalog="system" symbolScale="large"/>
                             <connections>
@@ -56,12 +95,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="FvL-GF-Oqx" kind="relationship" relationship="rootViewController" id="hz4-NL-c0H"/>
+                        <segue destination="axQ-Hz-O8T" kind="relationship" relationship="rootViewController" id="dlp-LU-BoJ"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sf1-lU-Ioa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="747.32824427480909" y="14.788732394366198"/>
+            <point key="canvasLocation" x="170" y="15"/>
         </scene>
     </scenes>
     <resources>
