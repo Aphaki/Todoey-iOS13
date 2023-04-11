@@ -15,28 +15,17 @@ class TodoTableVC: UITableViewController {
         TodoContext(body: "Use UserDefaults In UIKit", isChecked: false),
         TodoContext(body: "Use Core Data In UIKit", isChecked: true),
         TodoContext(body: "Use realm In UIKit", isChecked: false),
-        TodoContext(body: "Use UITableViewController", isChecked: false),
-        TodoContext(body: "Use UserDefaults In UIKit", isChecked: false),
-        TodoContext(body: "Use Core Data In UIKit", isChecked: true),
-        TodoContext(body: "Use realm In UIKit", isChecked: false),
-        TodoContext(body: "Use UITableViewController", isChecked: false),
-        TodoContext(body: "Use UserDefaults In UIKit", isChecked: false),
-        TodoContext(body: "Use Core Data In UIKit", isChecked: true),
-        TodoContext(body: "Use realm In UIKit", isChecked: false),
-        TodoContext(body: "Use UITableViewController", isChecked: false),
-        TodoContext(body: "Use UserDefaults In UIKit", isChecked: false),
-        TodoContext(body: "Use Core Data In UIKit", isChecked: true),
-        TodoContext(body: "Use realm In UIKit", isChecked: false),
-        TodoContext(body: "Use UITableViewController", isChecked: false),
-        TodoContext(body: "Use UserDefaults In UIKit", isChecked: false),
-        TodoContext(body: "Use Core Data In UIKit", isChecked: true),
-        TodoContext(body: "Use realm In UIKit", isChecked: false)
+        TodoContext(body: "Use UITableViewController", isChecked: false)
     ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
+    
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    
     
     //MARK: - Table View Data Source
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -68,5 +57,15 @@ class TodoTableVC: UITableViewController {
         myToDoContext[indexPath.row].isChecked.toggle()
         tableView.reloadData()
     }
+}
+
+extension TodoTableVC: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+    }
+    
 }
 
