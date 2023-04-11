@@ -15,6 +15,9 @@ class CategoryTableVC: UITableViewController {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadCoreData()
@@ -95,9 +98,37 @@ class CategoryTableVC: UITableViewController {
         } catch let error {
             print("CategoryTableVC - loadCoreData() error occured : \(error)")
         }
+        tableView.reloadData()
     }
     
     
     
 
+}
+
+extension CategoryTableVC: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let predicate = NSPredicate(format: "name CONTAINS[cd] %@", searchBar.text!)
+        let request = NSFetchRequest<Category>(entityName: "Category")
+        request.predicate = predicate
+        do {
+            try self.categories = context.fetch(request)
+        } catch let error {
+            print("CategoryTableVC - searchBarSearchButtonClicked() - fetch error : \(error)")
+        }
+        tableView.reloadData()
+        DispatchQueue.main.async {
+            searchBar.resignFirstResponder()
+        }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == "" {
+            loadCoreData()
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        }
+    }
 }

@@ -44,13 +44,16 @@ class TodoTableVC: UITableViewController {
         
     }
     
-    func loadCoreData() {
+    func loadCoreData(with request: NSFetchRequest<Content> = Content.fetchRequest(), predicate: NSPredicate? = nil) {
         let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
- 
-        let request = NSFetchRequest<Content>(entityName: "Content")
         
-        request.predicate = categoryPredicate
-        
+        if let additionalPredicate = predicate {
+            let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, additionalPredicate])
+            request.predicate = compoundPredicate
+        } else {
+            request.predicate = categoryPredicate
+        }
+    
         do {
             myTodoContents = try context.fetch(request)
         } catch let error {
@@ -111,10 +114,23 @@ class TodoTableVC: UITableViewController {
     
     //MARK: - Table View Delegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let selectedCell = tableView.cellForRow(at: indexPath)
         myTodoContents[indexPath.row].isChecked.toggle()
         saveInCoreData()
         tableView.reloadData()
+    }
+}
+
+extension TodoTableVC: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let predicate = NSPredicate(format: "text CONTAINS[cd] %@", searchBar.text!)
+        loadCoreData(predicate: predicate)
+        searchBar.endEditing(true)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == "" {
+            loadCoreData()
+        }
     }
 }
 
