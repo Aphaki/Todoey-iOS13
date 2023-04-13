@@ -17,9 +17,10 @@ class CategoryVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
 
+    
+    
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -39,10 +40,12 @@ class CategoryVC: UITableViewController {
         } else {
             cell.textLabel?.text = categories[indexPath.row].title
         }
-        
         return cell
     }
 
+    //MARK: - Data manipulation methods
+    
+    // Create
     @IBAction func addBtnPressed(_ sender: UIBarButtonItem) {
         var textField = UITextField()
         
@@ -64,6 +67,12 @@ class CategoryVC: UITableViewController {
         
         present(alert, animated: true)
     }
+    // Read --> Dynamic var
+    
+    // Update
+    
+    // Delete
+    
     
     func saveInRealm(addCategory: Object) {
         do {
