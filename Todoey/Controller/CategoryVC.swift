@@ -11,12 +11,13 @@ import RealmSwift
 
 class CategoryVC: UITableViewController {
 
-    var categories = Array<Category>()
+    var categories: Results<Category>?
     
     let realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadCategories()
     }
 
     
@@ -29,16 +30,16 @@ class CategoryVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return categories.count
+        return categories?.count ?? 1
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
         if #available(iOS 14.0, *) {
             var config = cell.defaultContentConfiguration()
-            config.text = categories[indexPath.row].title
+            config.text = categories?[indexPath.row].title ?? "Category is empty"
             cell.contentConfiguration = config
         } else {
-            cell.textLabel?.text = categories[indexPath.row].title
+            cell.textLabel?.text = categories?[indexPath.row].title ?? "Category is empty"
         }
         return cell
     }
@@ -53,9 +54,8 @@ class CategoryVC: UITableViewController {
         let action = UIAlertAction(title: "Add", style: .default) { _ in
            
             if let addCategoryTitle = textField.text {
-                var aCategory = Category()
+                let aCategory = Category()
                 aCategory.title = addCategoryTitle
-                self.categories.append(aCategory)
                 self.saveInRealm(addCategory: aCategory)
             }
         }
@@ -72,7 +72,27 @@ class CategoryVC: UITableViewController {
     // Update
     
     // Delete
-    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { (action, contextualView, success: @escaping (Bool) -> Void) in
+            if let categoryDeletion = self.categories?[indexPath.row] {
+                do {
+                    try self.realm.write {
+                        self.realm.delete(categoryDeletion)
+                    }
+                } catch {
+                    print("Categoty swipe delete error: \(error)")
+                }
+                
+            }
+            
+            print("Swip Delete Pressed")
+            tableView.reloadData()
+            success(true)
+           
+        }
+        
+        return UISwipeActionsConfiguration(actions: [delete])
+    }
     
     func saveInRealm(addCategory: Object) {
         do {
@@ -83,5 +103,10 @@ class CategoryVC: UITableViewController {
             print("Realm save error : \(error)")
         }
         self.tableView.reloadData()
+    }
+    
+    func loadCategories() {
+        self.categories = realm.objects(Category.self)
+        tableView.reloadData()
     }
 }
