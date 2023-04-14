@@ -67,9 +67,12 @@ class CategoryVC: UITableViewController {
         
         present(alert, animated: true)
     }
-    // Read --> Dynamic var
-    
-    // Update
+    // Read
+    func loadCategories() {
+        self.categories = realm.objects(Category.self)
+        tableView.reloadData()
+    }
+    // Update --> 여긴 없음
     
     // Delete
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -105,8 +108,5 @@ class CategoryVC: UITableViewController {
         self.tableView.reloadData()
     }
     
-    func loadCategories() {
-        self.categories = realm.objects(Category.self)
-        tableView.reloadData()
-    }
+    
 }
