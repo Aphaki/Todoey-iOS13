@@ -120,10 +120,16 @@ class TodoTableVC: SwipTableVC {
 
 extension TodoTableVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
+        if searchBar.text == "" {
+            loadContents()
+        }
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
+       toDoContents = toDoContents?.filter("title CONTAINS[cd] %@", searchBar.text!)
+        tableView.reloadData()
+        DispatchQueue.main.async {
+            searchBar.endEditing(true)
+        }
     }
     
 }
