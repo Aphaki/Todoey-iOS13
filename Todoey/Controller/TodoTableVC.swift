@@ -14,9 +14,15 @@
 import UIKit
 import RealmSwift
 
-class TodoTableVC: UITableViewController {
+class TodoTableVC: SwipTableVC {
     
     var toDoContents: Results<Content>?
+    
+    var selectedCategory: Category? {
+        didSet {
+            loadContents()
+        }
+    }
 
     let realm = try! Realm()
     
@@ -28,10 +34,46 @@ class TodoTableVC: UITableViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     
+    //MARK: - Manipulation Method
+    @IBAction func addBtnPressed(_ sender: UIBarButtonItem) {
+        var textField = UITextField()
+        
+        let alert = UIAlertController(title: "Todo", message: "Do you add Todo Contents?", preferredStyle: .alert)
+        
+        alert.addTextField { tf in
+            tf.placeholder = "Type and Add"
+            textField = tf
+            print("textField text: \(textField.text ?? "none")")
+        }
+        let action = UIAlertAction(title: "Add", style: .default) { _ in
+            try? self.realm.write {
+                let aContent = Content()
+                aContent.title = textField.text!
+                self.selectedCategory?.contents.append(aContent)
+            }
+            self.tableView.reloadData()
+        }
+        
+        alert.addAction(action)
+        
+        present(alert, animated: true)
+    }
+    override func deleteModel(indexPath: IndexPath) {
+        if let selectedContent = toDoContents?[indexPath.row] {
+            do {
+                try realm.write {
+                    self.realm.delete(selectedContent)
+                }
+            } catch {
+                print("TodoTableVC - delete content error: \(error)")
+            }
+        }
+    }
     
     //MARK: - Table View Data Source
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell", for: indexPath)
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell", for: indexPath)
         
         if #available(iOS 14.0, *) {
             var content = cell.defaultContentConfiguration()
@@ -53,6 +95,8 @@ class TodoTableVC: UITableViewController {
         return toDoContents?.count ?? 1
     }
     
+    
+    
     //MARK: - Table View Delegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        let selectedCell = tableView.cellForRow(at: indexPath)
@@ -67,6 +111,11 @@ class TodoTableVC: UITableViewController {
         
         tableView.reloadData()
     }
+    
+    func loadContents() {
+        toDoContents = selectedCategory?.contents.sorted(byKeyPath: "title", ascending: true)
+        tableView.reloadData()
+    }
 }
 
 extension TodoTableVC: UISearchBarDelegate {
@@ -78,4 +127,5 @@ extension TodoTableVC: UISearchBarDelegate {
     }
     
 }
+
 

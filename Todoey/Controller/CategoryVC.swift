@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class CategoryVC: UITableViewController {
+class CategoryVC: SwipTableVC {
 
     var categories: Results<Category>?
     
@@ -20,7 +20,16 @@ class CategoryVC: UITableViewController {
         loadCategories()
     }
 
-    
+    //MARK: - Table view delegate
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "GoToTodoView", sender: self)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! TodoTableVC
+        if let indexPath = tableView.indexPathForSelectedRow {
+            destinationVC.selectedCategory = categories?[indexPath.row]
+        }
+    }
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -33,7 +42,9 @@ class CategoryVC: UITableViewController {
         return categories?.count ?? 1
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+        
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
         if #available(iOS 14.0, *) {
             var config = cell.defaultContentConfiguration()
             config.text = categories?[indexPath.row].title ?? "Category is empty"
@@ -75,27 +86,38 @@ class CategoryVC: UITableViewController {
     // Update --> 여긴 없음
     
     // Delete
-    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = UIContextualAction(style: .destructive, title: "Delete") { (action, contextualView, success: @escaping (Bool) -> Void) in
-            if let categoryDeletion = self.categories?[indexPath.row] {
-                do {
-                    try self.realm.write {
-                        self.realm.delete(categoryDeletion)
-                    }
-                } catch {
-                    print("Categoty swipe delete error: \(error)")
+    override func deleteModel(indexPath: IndexPath) {
+        if let selectedCategory = categories?[indexPath.row] {
+            do {
+                try self.realm.write {
+                    self.realm.delete(selectedCategory)
                 }
-                
+            } catch {
+                print("Fail to Delete selected Category: \(error)")
             }
-            
-            print("Swip Delete Pressed")
-            tableView.reloadData()
-            success(true)
-           
         }
-        
-        return UISwipeActionsConfiguration(actions: [delete])
     }
+//    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        let delete = UIContextualAction(style: .destructive, title: "Delete") { (action, contextualView, success: @escaping (Bool) -> Void) in
+//            if let categoryDeletion = self.categories?[indexPath.row] {
+//                do {
+//                    try self.realm.write {
+//                        self.realm.delete(categoryDeletion)
+//                    }
+//                } catch {
+//                    print("Categoty swipe delete error: \(error)")
+//                }
+//
+//            }
+//
+//            print("Swip Delete Pressed")
+//            tableView.reloadData()
+//            success(true)
+//
+//        }
+//
+//        return UISwipeActionsConfiguration(actions: [delete])
+//    }
     
     func saveInRealm(addCategory: Object) {
         do {

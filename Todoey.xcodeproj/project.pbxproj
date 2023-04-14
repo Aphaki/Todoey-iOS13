@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7FB6CBAE29E949BD004D5B32 /* SwipTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB6CBAD29E949BD004D5B32 /* SwipTableVC.swift */; };
 		7FCA319129E69C1E00E1DF04 /* CategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCA319029E69C1E00E1DF04 /* CategoryVC.swift */; };
 		7FCA319429E6A65100E1DF04 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 7FCA319329E6A65100E1DF04 /* Realm */; };
 		7FCA319629E6A65100E1DF04 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7FCA319529E6A65100E1DF04 /* RealmSwift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7FB6CBAD29E949BD004D5B32 /* SwipTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipTableVC.swift; sourceTree = "<group>"; };
 		7FCA319029E69C1E00E1DF04 /* CategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CategoryVC.swift; path = Todoey/Controller/CategoryVC.swift; sourceTree = SOURCE_ROOT; };
 		7FCA319729E6AE7000E1DF04 /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
 		7FCA319929E6AFDA00E1DF04 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -50,6 +52,7 @@
 			children = (
 				7FCA319029E69C1E00E1DF04 /* CategoryVC.swift */,
 				EB2BE4FD239524DB00FB933B /* TodoTableVC.swift */,
+				7FB6CBAD29E949BD004D5B32 /* SwipTableVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -182,6 +185,7 @@
 			files = (
 				EB2BE4FE239524DB00FB933B /* TodoTableVC.swift in Sources */,
 				7FCA319129E69C1E00E1DF04 /* CategoryVC.swift in Sources */,
+				7FB6CBAE29E949BD004D5B32 /* SwipTableVC.swift in Sources */,
 				7FCA319829E6AE7000E1DF04 /* Content.swift in Sources */,
 				EB2BE4FA239524DB00FB933B /* AppDelegate.swift in Sources */,
 				7FCA319A29E6AFDA00E1DF04 /* Category.swift in Sources */,
