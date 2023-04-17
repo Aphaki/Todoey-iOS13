@@ -9,9 +9,13 @@
 import UIKit
 import RealmSwift
 
-class CategoryVC: UITableViewController {
+class CategoryVC: SwipeTableVC {
 
-    var categories = Array<Category>()
+    var categories: Results<Category>? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     let realm = try! Realm()
     
@@ -29,22 +33,23 @@ class CategoryVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return categories.count
+        return categories?.count ?? 0
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         if #available(iOS 14.0, *) {
             var config = cell.defaultContentConfiguration()
-            config.text = categories[indexPath.row].title
+            config.text = categories?[indexPath.row].title ?? "Category is Empty"
             cell.contentConfiguration = config
         } else {
-            cell.textLabel?.text = categories[indexPath.row].title
+            cell.textLabel?.text = categories?[indexPath.row].title ?? "Category is Empty"
         }
         return cell
     }
 
-    //MARK: - Data manipulation methods
     
+    
+    //MARK: - Data manipulation methods
     // Create
     @IBAction func addBtnPressed(_ sender: UIBarButtonItem) {
         var textField = UITextField()
@@ -55,7 +60,6 @@ class CategoryVC: UITableViewController {
             if let addCategoryTitle = textField.text {
                 var aCategory = Category()
                 aCategory.title = addCategoryTitle
-                self.categories.append(aCategory)
                 self.saveInRealm(addCategory: aCategory)
             }
         }
@@ -67,13 +71,6 @@ class CategoryVC: UITableViewController {
         
         present(alert, animated: true)
     }
-    // Read --> Dynamic var
-    
-    // Update
-    
-    // Delete
-    
-    
     func saveInRealm(addCategory: Object) {
         do {
             try realm.write {
@@ -84,4 +81,38 @@ class CategoryVC: UITableViewController {
         }
         self.tableView.reloadData()
     }
+    
+    // Read
+    func loadFromRealm() {
+       categories = realm.objects(Category.self)
+    }
+    
+    
+    // Update
+    
+    // Delete: SwipeTableVC에서 선언
+    override func updateModel(indexPath: IndexPath) {
+        if let selectedCategory = categories?[indexPath.row] {
+            do {
+                try realm.write {
+                    realm.delete(selectedCategory)
+                }
+            } catch {
+                print("CategoryVC - updateModel() error: \(error)")
+            }
+        }
+    }
+    
+    
+    //MARK: - TableView Delegate
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "GoToTodoView", sender: self)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! TodoTableVC
+        if let indexPath = tableView.indexPathForSelectedRow {
+            destinationVC.selectedCategory = categories?[indexPath.row]
+        }
+    }
+    
 }

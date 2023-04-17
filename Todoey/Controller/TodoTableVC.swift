@@ -7,16 +7,19 @@
 //
 
 import UIKit
+import RealmSwift
 
 class TodoTableVC: UITableViewController {
     
-    var toDoContents: [Content] = [
-//        TodoContext(body: "Use UITableViewController", isChecked: false),
-//        TodoContext(body: "Use UserDefaults In UIKit", isChecked: false),
-//        TodoContext(body: "Use Core Data In UIKit", isChecked: true),
-//        TodoContext(body: "Use realm In UIKit", isChecked: false),
-//        TodoContext(body: "Use UITableViewController", isChecked: false)
-    ]
+    let realm = try! Realm()
+    
+    var selectedCategory: Category? {
+        didSet {
+            
+        }
+    }
+    
+    var toDoContents: Results<Content>?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,13 +36,13 @@ class TodoTableVC: UITableViewController {
         
         if #available(iOS 14.0, *) {
             var content = cell.defaultContentConfiguration()
-            content.text = self.toDoContents[indexPath.row].title
+            content.text = self.toDoContents?[indexPath.row].title ?? "None"
             cell.contentConfiguration = content
         } else {
-            cell.textLabel?.text = self.toDoContents[indexPath.row].title
+            cell.textLabel?.text = self.toDoContents?[indexPath.row].title ?? "None"
         }
         
-        if toDoContents[indexPath.row].isChecked == true {
+        if toDoContents?[indexPath.row].isChecked == true {
             cell.accessoryType = .checkmark
         } else {
             cell.accessoryType = .none
@@ -48,13 +51,24 @@ class TodoTableVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return toDoContents.count
+        return toDoContents?.count ?? 1
     }
     
     //MARK: - Table View Delegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let selectedCell = tableView.cellForRow(at: indexPath)
-        toDoContents[indexPath.row].isChecked.toggle()
+        if let selectedObject =
+            toDoContents?[indexPath.row] {
+            do {
+                try realm.write {
+                    selectedObject.isChecked.toggle()
+                }
+            } catch {
+                print("TodoTableVC - check error")
+            }
+            
+        }
+        
+        
         tableView.reloadData()
     }
 }
