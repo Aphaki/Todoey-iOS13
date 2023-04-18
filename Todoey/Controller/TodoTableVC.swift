@@ -20,7 +20,7 @@ class TodoTableVC: UITableViewController {
     }
     
     var toDoContents: Results<Content>?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -67,10 +67,37 @@ class TodoTableVC: UITableViewController {
             }
             
         }
-        
-        
         tableView.reloadData()
     }
+    
+    //MARK: - Plus btn action
+    @IBAction func addBtnPressed(_ sender: UIBarButtonItem) {
+        var textField = UITextField()
+
+        let alert = UIAlertController(title: "Todo", message: "Add Todo Content", preferredStyle: .alert)
+        alert.addTextField { tf in
+            textField = tf
+            textField.placeholder = "Type your Todo"
+        }
+        
+        let action = UIAlertAction(title: "Add", style: .default) { _ in
+            if let validCategory = self.selectedCategory {
+                do {
+                    try self.realm.write {
+                        let aContent = Content()
+                        aContent.title = textField.text!
+                        aContent.createdDate = Date()
+                        validCategory.contents.append(aContent)
+                    }
+                } catch {
+                    print("TodoTableVC - addBtnPressed() - Add error: \(error)")
+                }
+            }
+        } //action
+        alert.addAction(action)
+        present(alert, animated: true)
+    }
+    
 }
 
 extension TodoTableVC: UISearchBarDelegate {

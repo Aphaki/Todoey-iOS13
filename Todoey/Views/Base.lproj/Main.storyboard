@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -39,7 +40,14 @@
                             <outlet property="delegate" destination="FvL-GF-Oqx" id="LXv-cv-ctj"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Check Todo" id="wYi-LQ-fbJ"/>
+                    <navigationItem key="navigationItem" title="Check Todo" id="wYi-LQ-fbJ">
+                        <barButtonItem key="rightBarButtonItem" id="ZeH-W9-ArE">
+                            <imageReference key="image" image="plus" catalog="system" symbolScale="large"/>
+                            <connections>
+                                <action selector="addBtnPressed:" destination="FvL-GF-Oqx" id="jQX-Ot-GMV"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="searchBar" destination="1qR-tn-JLE" id="18N-Zj-z7R"/>
                     </connections>

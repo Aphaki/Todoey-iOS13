@@ -21,11 +21,17 @@ class SwipeTableVC: UITableViewController, SwipeTableViewCellDelegate {
     // MARK: - Table view data source
     // 셀 설정
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! SwipeTableViewCell
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? SwipeTableViewCell {
+            print("Type cast success")
+            cell.delegate = self
+            
+            return cell
+        } else {
+            print("Type cast Error")
+            return tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        }
         
-        cell.delegate = self
         
-        return cell
     }
     // 액션 설정
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeCellKit.SwipeActionsOrientation) -> [SwipeCellKit.SwipeAction]? {

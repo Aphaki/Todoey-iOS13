@@ -17,6 +17,7 @@ class CategoryVC: SwipeTableVC {
         }
     }
     
+
     let realm = try! Realm()
     
     override func viewDidLoad() {
@@ -33,7 +34,7 @@ class CategoryVC: SwipeTableVC {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return categories?.count ?? 0
+        return categories?.count ?? 1
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
@@ -58,7 +59,7 @@ class CategoryVC: SwipeTableVC {
         let action = UIAlertAction(title: "Add", style: .default) { _ in
            
             if let addCategoryTitle = textField.text {
-                var aCategory = Category()
+                let aCategory = Category()
                 aCategory.title = addCategoryTitle
                 self.saveInRealm(addCategory: aCategory)
             }
