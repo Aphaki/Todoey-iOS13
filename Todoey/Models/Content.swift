@@ -12,6 +12,7 @@ import RealmSwift
 class Content: Object {
     @objc dynamic var title: String = ""
     @objc dynamic var isChecked: Bool = false
+    @objc dynamic var date: Date = Date()
     var parentCategory = LinkingObjects(fromType: Category.self, property: "contents")
     
     

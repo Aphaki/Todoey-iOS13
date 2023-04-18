@@ -44,7 +44,6 @@ class CategoryVC: SwipTableVC {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
         if #available(iOS 14.0, *) {
             var config = cell.defaultContentConfiguration()
             config.text = categories?[indexPath.row].title ?? "Category is empty"

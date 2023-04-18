@@ -113,7 +113,7 @@ class TodoTableVC: SwipTableVC {
     }
     
     func loadContents() {
-        toDoContents = selectedCategory?.contents.sorted(byKeyPath: "title", ascending: true)
+        toDoContents = selectedCategory?.contents.sorted(byKeyPath: "date", ascending: true)
         tableView.reloadData()
     }
 }
