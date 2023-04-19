@@ -4,11 +4,12 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Select Category-->
+        <!--Check Todo-->
         <scene sceneID="dI8-0r-RIV">
             <objects>
                 <tableViewController id="FvL-GF-Oqx" customClass="TodoTableVC" customModule="Todoey" customModuleProvider="target" sceneMemberID="viewController">
@@ -16,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" placeholder="Search Your Todo contents" id="1qR-tn-JLE">
+                        <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" placeholder="Search your Todo contents" id="1qR-tn-JLE">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
@@ -25,7 +26,7 @@
                             </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TodoCell" id="Q0k-4X-cp4">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" id="Q0k-4X-cp4">
                                 <rect key="frame" x="0.0" y="94" width="393" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Q0k-4X-cp4" id="IuD-R5-zxP">
@@ -39,14 +40,59 @@
                             <outlet property="delegate" destination="FvL-GF-Oqx" id="LXv-cv-ctj"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Select Category" id="wYi-LQ-fbJ"/>
+                    <navigationItem key="navigationItem" title="Check Todo" id="wYi-LQ-fbJ">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="Iby-gV-5Gm">
+                            <imageReference key="image" image="plus" catalog="system" symbolScale="large"/>
+                            <connections>
+                                <action selector="addBtnPressed:" destination="FvL-GF-Oqx" id="1Tk-nR-DEy"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="searchBar" destination="1qR-tn-JLE" id="18N-Zj-z7R"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gtD-PB-GFj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1674.0458015267175" y="14.788732394366198"/>
+            <point key="canvasLocation" x="2579" y="15"/>
+        </scene>
+        <!--Select a category-->
+        <scene sceneID="Bqj-QY-O26">
+            <objects>
+                <tableViewController id="G5o-Yg-Dp8" customClass="CategoryVC" customModule="Todoey" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="KeK-KD-x5m">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="GTJ-J5-BuY">
+                                <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GTJ-J5-BuY" id="3rN-LK-aGh">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="G5o-Yg-Dp8" id="N5K-lj-NCu"/>
+                            <outlet property="delegate" destination="G5o-Yg-Dp8" id="pSe-eX-55n"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Select a category" id="tdA-O8-Ms0">
+                        <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="WYd-Ks-xgp">
+                            <connections>
+                                <action selector="addBtnPressed:" destination="G5o-Yg-Dp8" id="TKj-lJ-S5Y"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="FvL-GF-Oqx" kind="show" identifier="GoToTodoView" id="0Sl-o6-iMj"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Prl-I2-qvN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1673" y="15"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="J4M-J2-UhI">
@@ -59,7 +105,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="FvL-GF-Oqx" kind="relationship" relationship="rootViewController" id="hz4-NL-c0H"/>
+                        <segue destination="G5o-Yg-Dp8" kind="relationship" relationship="rootViewController" id="bt9-kj-J0f"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sf1-lU-Ioa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -68,6 +114,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
