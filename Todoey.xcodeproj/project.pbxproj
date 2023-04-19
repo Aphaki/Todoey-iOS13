@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7FCFDC7429EFDDD500C2CAB2 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCFDC7329EFDDD500C2CAB2 /* MainVC.swift */; };
 		7FCFDC7A29EFE14D00C2CAB2 /* Entity.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7FCFDC7829EFE14D00C2CAB2 /* Entity.xcdatamodeld */; };
+		7FCFDC7C29EFEDFD00C2CAB2 /* ContentsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCFDC7B29EFEDFD00C2CAB2 /* ContentsVC.swift */; };
 		EB2BE4FA239524DB00FB933B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2BE4F9239524DB00FB933B /* AppDelegate.swift */; };
 		EB2BE501239524DB00FB933B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB2BE4FF239524DB00FB933B /* Main.storyboard */; };
 		EB2BE503239524DC00FB933B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB2BE502239524DC00FB933B /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 /* Begin PBXFileReference section */
 		7FCFDC7329EFDDD500C2CAB2 /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		7FCFDC7929EFE14D00C2CAB2 /* Entity.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Entity.xcdatamodel; sourceTree = "<group>"; };
+		7FCFDC7B29EFEDFD00C2CAB2 /* ContentsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsVC.swift; sourceTree = "<group>"; };
 		EB2BE4F6239524DB00FB933B /* Todoey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todoey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB2BE4F9239524DB00FB933B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB2BE500239524DB00FB933B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -41,6 +43,7 @@
 			isa = PBXGroup;
 			children = (
 				7FCFDC7329EFDDD500C2CAB2 /* MainVC.swift */,
+				7FCFDC7B29EFEDFD00C2CAB2 /* ContentsVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -164,6 +167,7 @@
 			files = (
 				EB2BE4FA239524DB00FB933B /* AppDelegate.swift in Sources */,
 				7FCFDC7429EFDDD500C2CAB2 /* MainVC.swift in Sources */,
+				7FCFDC7C29EFEDFD00C2CAB2 /* ContentsVC.swift in Sources */,
 				7FCFDC7A29EFE14D00C2CAB2 /* Entity.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
