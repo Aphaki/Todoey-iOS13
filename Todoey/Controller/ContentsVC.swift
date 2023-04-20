@@ -11,7 +11,11 @@ import CoreData
 
 class ContentsVC: UITableViewController {
 
-    var selectedCategory: Category?
+    var selectedCategory: Category? {
+        didSet {
+            loadCoreData()
+        }
+    }
     
     var contents: [Content] = []
     
@@ -23,10 +27,6 @@ class ContentsVC: UITableViewController {
     }
 
     // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return contents.count
@@ -48,15 +48,50 @@ class ContentsVC: UITableViewController {
         return cell
     }
     
-    func loadData() {
+    
+    //MARK: - Add
+    @IBAction func addBtnPressed(_ sender: UIBarButtonItem) {
+        var textField = UITextField()
+        
+        let alert = UIAlertController(title: "Add", message: "Add a Content", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Add", style: .default) { _ in
+            let aContent = Content(context: self.context)
+            aContent.body = textField.text
+            aContent.parentCategory = self.selectedCategory
+            aContent.date = Date()
+            aContent.isChecked = false
+            self.contents.append(aContent)
+            self.saveCoreData()
+            self.tableView.reloadData()
+        }
+        alert.addTextField { tf in
+            textField = tf
+            textField.placeholder = "Type..."
+        }
+        alert.addAction(action)
+        present(alert, animated: true)
+    }
+    
+    //MARK: - Save
+    func saveCoreData() {
+        do {
+            try context.save()
+        } catch {
+            print("ContentsVC - saveData() error: \(error)")
+        }
+    }
+    //MARK: - Load
+    func loadCoreData() {
         let request = NSFetchRequest<Content>(entityName: "Content")
-        request.predicate = NSPredicate(format: "parentCategory.title", selectedCategory!.title!)
+        let predicate = NSPredicate(format: "parentCategory.title MATCHES[cd] %@", selectedCategory!.title!)
+        request.predicate = predicate
         do {
             self.contents = try context.fetch(request)
         } catch {
-            print("ContentsVC - loadData() error: \(error)")
+            print("ContentsVC - loadCoreData() error: \(error)")
         }
-        
-        
+        tableView.reloadData()
     }
+    
 }

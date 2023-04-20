@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--MainVC-->
+        <!--Category-->
         <scene sceneID="23F-00-1Qg">
             <objects>
                 <tableViewController id="ufh-tF-JzE" customClass="MainVC" customModule="Todoey" customModuleProvider="target" sceneMemberID="viewController">
@@ -32,11 +32,11 @@
                             <outlet property="delegate" destination="ufh-tF-JzE" id="zFI-X4-s3Q"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="WLV-oJ-Jqc">
+                    <navigationItem key="navigationItem" title="Category" id="WLV-oJ-Jqc">
                         <barButtonItem key="rightBarButtonItem" id="wTL-r6-L7o">
                             <imageReference key="image" image="plus" catalog="system" symbolScale="large"/>
                             <connections>
-                                <action selector="addBtnPressed:" destination="ufh-tF-JzE" id="bAy-9R-1nm"/>
+                                <action selector="addBtnPressed:" destination="ufh-tF-JzE" id="Ss8-6r-tks"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -48,7 +48,7 @@
             </objects>
             <point key="canvasLocation" x="1735.1145038167938" y="10.563380281690142"/>
         </scene>
-        <!--ContentsVC-->
+        <!--Todo-->
         <scene sceneID="mfd-lA-H0X">
             <objects>
                 <tableViewController id="snU-0t-9Dx" customClass="ContentsVC" customModule="Todoey" customModuleProvider="target" sceneMemberID="viewController">
@@ -71,9 +71,12 @@
                             <outlet property="delegate" destination="snU-0t-9Dx" id="qVR-EZ-ON1"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="RnL-AY-sQL">
+                    <navigationItem key="navigationItem" title="Todo" id="RnL-AY-sQL">
                         <barButtonItem key="rightBarButtonItem" id="XaV-BI-5Fl">
                             <imageReference key="image" image="plus" catalog="system" symbolScale="large"/>
+                            <connections>
+                                <action selector="addBtnPressed:" destination="snU-0t-9Dx" id="Qvk-pa-JXX"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>

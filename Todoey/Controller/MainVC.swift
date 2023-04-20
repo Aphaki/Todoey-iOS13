@@ -17,18 +17,19 @@ class MainVC: UITableViewController {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadData()
+        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!)
     }
-
+    
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return categories.count
@@ -66,7 +67,7 @@ class MainVC: UITableViewController {
         var textField = UITextField()
         let alert = UIAlertController(title: "Category", message: "Add your Todo Category", preferredStyle: .alert)
         let action = UIAlertAction(title: "Add", style: .default) { _ in
-            var aCategory = Category(context: self.context)
+            let aCategory = Category(context: self.context)
             aCategory.title = textField.text
             self.categories.append(aCategory)
             self.saveData()
@@ -76,7 +77,8 @@ class MainVC: UITableViewController {
             textField = tf
             textField.placeholder = "Typing.."
         }
-        
+        alert.addAction(action)
+        present(alert, animated: true)
     }
     func saveData() {
         do {
@@ -97,6 +99,7 @@ class MainVC: UITableViewController {
         }
         tableView.reloadData()
     } // loadData()
+    
     
     
 }
