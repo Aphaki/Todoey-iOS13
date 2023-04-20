@@ -49,6 +49,14 @@ class ContentsVC: UITableViewController {
     }
     
     
+    //MARK: - Table View Delegate
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        contents[indexPath.row].isChecked.toggle()
+        saveCoreData()
+        tableView.reloadData()
+    }
+    
+    
     //MARK: - Add
     @IBAction func addBtnPressed(_ sender: UIBarButtonItem) {
         var textField = UITextField()
