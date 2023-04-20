@@ -26,7 +26,7 @@ class ContentsVC: UITableViewController {
         
     }
 
-    // MARK: - Table view data source
+    // MARK: - Table view data source (UpDate)
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return contents.count
@@ -96,6 +96,9 @@ class ContentsVC: UITableViewController {
         request.predicate = predicate
         do {
             self.contents = try context.fetch(request)
+            self.contents.sort { a, b in
+                return a.date!.timeIntervalSince1970 > b.date!.timeIntervalSince1970
+            }
         } catch {
             print("ContentsVC - loadCoreData() error: \(error)")
         }
